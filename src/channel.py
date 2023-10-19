@@ -14,7 +14,7 @@ class Channel:
 
     def __init__(self, channel_id: str) -> None:
         """Инициализация объекта канала"""
-        self.channel_id = channel_id
+        self._channel_id = channel_id
         self.channel_info = youtube.channels().list(id=channel_id, part='snippet,statistics').execute()['items'][0]
         self.title = self.channel_info['snippet']['title']
         self.description = self.channel_info['snippet']['description']
@@ -22,6 +22,14 @@ class Channel:
         self.subscriber_count = int(self.channel_info['statistics']['subscriberCount'])
         self.video_count = int(self.channel_info['statistics']['videoCount'])
         self.view_count = int(self.channel_info['statistics']['viewCount'])
+
+    @property
+    def channel_id(self):
+        return self._channel_id
+
+    @channel_id.setter
+    def channel_id(self, value):
+        raise AttributeError("Нельзя изменять атрибут channel_id")
 
     @classmethod
     def get_service(cls):
