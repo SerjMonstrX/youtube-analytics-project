@@ -23,6 +23,50 @@ class Channel:
         self.video_count = int(self.channel_info['statistics']['videoCount'])
         self.view_count = int(self.channel_info['statistics']['viewCount'])
 
+    def __str__(self):
+        """Метод возвращающий название и ссылку на канал"""
+        return f"{self.title} ({self.url})"
+
+    def __add__(self, other):
+        """Метод для сложения объектов Channel (по кол-ву подписчиков)"""
+        return self.subscriber_count + other.subscriber_count
+
+    def __sub__(self, other):
+        """Метод для вычитания одного объекта Channel из другого (по кол-ву подписчиков)"""
+        return self.subscriber_count - other.subscriber_count
+
+    def __eq__(self, other):
+        """Метод для проверки равенства двух объектов Channel (по кол-ву подписчиков)"""
+        if isinstance(other, Channel):
+            return self.subscriber_count == other.subscriber_count
+
+    def __lt__(self, other):
+        """Метод для проверки, меньше ли один объект Channel другого (по кол-ву подписчиков)"""
+        if isinstance(other, Channel):
+            return self.subscriber_count < other.subscriber_count
+
+    def __le__(self, other):
+        """Метод для проверки, меньше или равен один объект Channel другому (по кол-ву подписчиков)"""
+        if isinstance(other, Channel):
+            return self.subscriber_count <= other.subscriber_count
+
+
+    def __gt__(self, other):
+        """Метод для проверки, больше ли один объект Channel другого (по кол-ву подписчиков)"""
+        if isinstance(other, Channel):
+            return self.subscriber_count > other.subscriber_count
+
+    def __ge__(self, other):
+        """Метод для проверки, больше или равен один объект Channel другому (по кол-ву подписчиков)"""
+        if isinstance(other, Channel):
+            return self.subscriber_count >= other.subscriber_count
+
+    def __ne__(self, other):
+        """Метод для проверки неравенства двух объектов Channel (по кол-ву подписчиков)"""
+        if isinstance(other, Channel):
+            return self.subscriber_count != other.subscriber_count
+
+
     @property
     def channel_id(self):
         return self._channel_id
