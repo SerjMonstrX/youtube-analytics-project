@@ -50,7 +50,6 @@ class Channel:
         if isinstance(other, Channel):
             return self.subscriber_count <= other.subscriber_count
 
-
     def __gt__(self, other):
         """Метод для проверки, больше ли один объект Channel другого (по кол-ву подписчиков)"""
         if isinstance(other, Channel):
@@ -65,7 +64,6 @@ class Channel:
         """Метод для проверки неравенства двух объектов Channel (по кол-ву подписчиков)"""
         if isinstance(other, Channel):
             return self.subscriber_count != other.subscriber_count
-
 
     @property
     def channel_id(self):
