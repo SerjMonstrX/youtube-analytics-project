@@ -8,17 +8,26 @@ youtube = build('youtube', 'v3', developerKey=api_key)
 class Video:
     def __init__(self, video_id):
         self.video_id = video_id
-        video_response = youtube.videos().list(
-            part='contentDetails,statistics,snippet',
-            id=self.video_id
-        ).execute()
-        self.title = video_response['items'][0]['snippet']['title']
-        self.url = f"https://youtu.be/{self.video_id}"
-        self.views_count = video_response['items'][0]['statistics']['viewCount']
-        self.likes_count = video_response['items'][0]['statistics']['likeCount']
+        try:
+            video_response = youtube.videos().list(
+                part='contentDetails,statistics,snippet',
+                id=self.video_id
+            ).execute()
+            self.title = video_response['items'][0]['snippet']['title']
+            self.url = f"https://youtu.be/{self.video_id}"
+            self.views_count = video_response['items'][0]['statistics']['viewCount']
+            self.like_count = video_response['items'][0]['statistics']['likeCount']
+        except:
+            self.title = None
+            self.url = f"https://youtu.be/{self.video_id}"
+            self.views_count = None
+            self.like_count = None
 
     def __str__(self):
-        return self.title
+        if self.title:
+            return self.title
+        else:
+            return f"Video with ID {self.video_id} not found"
 
 
 class PLVideo(Video):
